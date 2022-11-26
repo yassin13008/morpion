@@ -24,6 +24,24 @@ let state = {
     c9:0,
 }
 
+// Création de la fonction reset 
+
+const resetState = () => {
+    joueurEnCours = 1;
+    state.c1 = 0;
+    state.c2 = 0;
+    state.c3 = 0;
+    state.c4 = 0;
+    state.c5 = 0;
+    state.c6 = 0;
+    state.c7 = 0;
+    state.c8 = 0;
+    state.c9 = 0;
+}
+
+
+
+
 // Création de la fonction victoire, null et défaite
 
 const verifierVictoire = ()=> {
@@ -39,20 +57,21 @@ const verifierVictoire = ()=> {
     ){
         return true
     }
-    else if (state.c1 != 0 && 
-        state.c2 != 0 &&
-        state.c3 != 0 &&
-        state.c4 != 0 &&
-        state.c5 != 0 &&
-        state.c6 != 0 &&
-        state.c7 != 0 &&
-        state.c8 != 0 &&
-        state.c9 != 0 ) {
+    else if (state.c1 !== 0 && 
+        state.c2 !== 0 &&
+        state.c3 !== 0 &&
+        state.c4 !== 0 &&
+        state.c5 !== 0 &&
+        state.c6 !== 0 &&
+        state.c7 !== 0 &&
+        state.c8 !== 0 &&
+        state.c9 !== 0 ) {
             return null
         }
     else {
         return false
     }
+
 }
 
 
@@ -60,12 +79,49 @@ const verifierVictoire = ()=> {
 
 const jouerCase = (e)=> {
     let idCase= e.target.id;
-    if (state[idCase] != 0) return;
+    if (state[idCase] !== 0) return;
 
-    state.idCase.joueurEnCours;
+    state[idCase] = state.joueurEnCours;
 
-    let ifvictoire = verifierVictoire();
-}
+    let isVictoire = verifierVictoire();
+    if (isVictoire === true) {
+        alert('Bravo vous avez gagnez ' + state.joueurEnCours)
+        if(state.joueurEnCours === 1 ) {
+            state.scoreJ1++;
+            score1.textContent = state.scoreJ1
+        }
+        else {
+            state.scoreJ2++;
+                score2.textContent = state.scoreJ2
+    }
+
+    resetState()
+    cases.forEach((c) => (c.textContent + ""));
+    }
+    
+    else if (isVictoire===null) {
+        alert("match nul")
+        state.matchNuls++;
+        scoreNul.textContent = state.matchNuls;
+        joueur.textContent = "1";
+        resetState()
+        cases.forEach((c) => (c.textContent + ""));
+    }
+    else (isVictoire === false) 
+    {
+
+        if (state.joueurEnCours === 1) {
+            e.target.textContent = 'X';
+            state.joueurEnCours = 2 ;
+            joueur.textContent = "2"
+        }
+        else {
+            e.target.textContent = 'O';
+            state.joueurEnCours = 1 ;
+            joueur.textContent = "1"
+        }
+    }
+};
 
 // Création du jeu = 1er partie = L'event clic
 

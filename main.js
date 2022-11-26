@@ -37,7 +37,7 @@ const resetState = () => {
     state.c7 = 0;
     state.c8 = 0;
     state.c9 = 0;
-}
+};
 
 
 
@@ -95,8 +95,8 @@ const jouerCase = (e)=> {
                 score2.textContent = state.scoreJ2
     }
 
-    resetState()
-    cases.forEach((c) => (c.textContent + ""));
+    resetState();
+    cases.forEach((c) => (c.textContent = ""));
     }
     
     else if (isVictoire===null) {
@@ -105,20 +105,22 @@ const jouerCase = (e)=> {
         scoreNul.textContent = state.matchNuls;
         joueur.textContent = "1";
         resetState()
-        cases.forEach((c) => (c.textContent + ""));
+        cases.forEach((c) => (c.textContent = ""));
     }
-    else (isVictoire === false) 
+    else if (isVictoire === false) 
     {
 
         if (state.joueurEnCours === 1) {
-            e.target.textContent = 'X';
             state.joueurEnCours = 2 ;
+            e.target.textContent = 'X';
             joueur.textContent = "2"
+            e.target.style.color ='red'
         }
         else {
-            e.target.textContent = 'O';
             state.joueurEnCours = 1 ;
+            e.target.textContent = 'O';
             joueur.textContent = "1"
+            e.target.style.color ='green'
         }
     }
 };
@@ -127,4 +129,5 @@ const jouerCase = (e)=> {
 
 cases.forEach((el)=> {
     el.addEventListener('click',jouerCase);
-})
+}) 
+
